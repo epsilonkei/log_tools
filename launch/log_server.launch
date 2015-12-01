@@ -1,0 +1,5 @@
+<launch>
+	<node name = "rosbag_server"
+				pkg = "log_tools"
+				type = "rosbag_server.py"/>
+</launch>
