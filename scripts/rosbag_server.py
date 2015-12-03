@@ -8,23 +8,23 @@ import rospy
 import subprocess
 
 def rosbag_command_callback(rosbag_command):
-    print "rosbag_command_callback()"
+    rospy.loginfo("rosbag_command_callback()")
     if rosbag_command.command == 'start':
-        print "start recording rosbag"
+        rospy.loginfo("start recording rosbag")
         p = subprocess.Popen(["rosbag","record","-a"])
     elif rosbag_command.command == 'stop':
-        print "stop recording rosbag"
+        rospy.loginfo("stop recording rosbag")
         subprocess.Popen(["pkill","rosbag","-2"])
         subprocess.Popen(["pkill","record","-2"])
     else :
-        print "invalid command"
+        rospy.loginfo("invalid command")
 
     return True
 
 def rosbag_command_server():
     rospy.init_node('log_tools_rosbag_command_server')
     s = rospy.Service('rosbag_command', log_tools.srv.RosbagCommand, rosbag_command_callback)
-    print "Ready to record rosbag"
+    rospy.loginfo("Ready to record rosbag")
     rospy.spin()
 
 rosbag_command_server()
