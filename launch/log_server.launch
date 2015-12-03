@@ -1,5 +1,9 @@
 <launch>
+  <arg name="OUTPUT" default="screen"/>
+
 	<node name = "rosbag_server"
 				pkg = "log_tools"
-				type = "rosbag_server.py"/>
+				type = "rosbag_server.py"
+				output = "$(arg OUTPUT)"
+				respawn="true"/>
 </launch>
