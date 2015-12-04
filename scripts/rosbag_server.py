@@ -4,14 +4,17 @@
 # from log_tools.srv import *
 import log_tools.srv
 import rospy
+import time
 
 import subprocess
 
 def rosbag_command_callback(rosbag_command):
     rospy.loginfo("rosbag_command_callback()")
     if rosbag_command.command == 'start':
+        localtime = time.localtime()
+        global filename = rosbag_command.filename + str(localtime.tm_year) + "-" + str(localtime.tm_mon) + "-" + str(localtime.tm_mday) + "-" + str(localtime.tm_hour) + "-" + str(localtime.tm_sec)
         rospy.loginfo("start recording rosbag")
-        p = subprocess.Popen(["rosbag","record","-a","-o",rosbag_command.filename])
+        p = subprocess.Popen(["rosbag","record","-a","-O",filename])
     elif rosbag_command.command == 'stop':
         rospy.loginfo("stop recording rosbag")
         subprocess.Popen(["pkill","rosbag","-2"])
