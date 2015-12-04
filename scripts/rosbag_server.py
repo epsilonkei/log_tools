@@ -11,7 +11,7 @@ def rosbag_command_callback(rosbag_command):
     rospy.loginfo("rosbag_command_callback()")
     if rosbag_command.command == 'start':
         rospy.loginfo("start recording rosbag")
-        p = subprocess.Popen(["rosbag","record","-a"])
+        p = subprocess.Popen(["rosbag","record","-a","-o",rosbag_command.filename])
     elif rosbag_command.command == 'stop':
         rospy.loginfo("stop recording rosbag")
         subprocess.Popen(["pkill","rosbag","-2"])
