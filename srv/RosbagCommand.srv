@@ -1,4 +1,5 @@
 string command
 string filename
+string path
 ---
 bool ret
