@@ -22,9 +22,10 @@ def rosbag_command_callback(rosbag_command):
         filename0 = create_file_name(rosbag_command.filename)
         rospy.loginfo("start recording rosbag")
         if rosbag_command.topics == '':
-            p = subprocess.Popen(["rosbag","record","-a","-O",filename0])
+            rosbag_proc = subprocess.Popen(["rosbag","record","-a","-O",filename0])
         else:
-            p = subprocess.Popen(["rosbag","record", rosbag_command.topics,"-O",filename0])
+            topics_list = rosbag_command.topics.split()
+            rosbag_proc = subprocess.Popen(["rosbag","record"] + topics_list + ["-O",filename0])
     # stop recording and save log
     elif rosbag_command.command == 'stop':
         rospy.loginfo("stop recording rosbag")
